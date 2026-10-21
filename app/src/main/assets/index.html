@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #02050a;
+               font-family: sans-serif; color: #7ff6ff; }
+  #bg { position: fixed; inset: 0; z-index: 0; }
+  #wrap { position: relative; z-index: 1; height: 100%; display: flex;
+          flex-direction: column; align-items: center; justify-content: center; }
+  #girl { width: 70vw; max-width: 320px; filter: drop-shadow(0 0 18px #00e5ff88); }
+  #girl.talking { animation: talk .35s ease-in-out infinite alternate; }
+  @keyframes talk { from { transform: scale(1); } to { transform: scale(1.03) translateY(-3px); } }
+  #name { font-size: 28px; letter-spacing: 6px; margin-top: 12px; text-shadow: 0 0 12px #00e5ff; }
+  #text { margin-top: 14px; min-height: 48px; max-width: 85vw; text-align: center;
+          font-size: 16px; color: #bffbff; }
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+<div id="wrap">
+  <img id="girl" src="girl.png" alt="">
+  <div id="name">NORDEN</div>
+  <div id="text">"Hello Norden" बोलें</div>
+</div>
+<script src="three.min.js"></script>
+<script>
+const canvas = document.getElementById('bg');
+const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+const scene = new THREE.Scene();
+scene.fog = new THREE.FogExp2(0x02050a, 0.0018);
+const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 2000);
+camera.position.set(0, 40, 160);
+const grid = new THREE.GridHelper(800, 60, 0x00e5ff, 0x0a3d4a);
+grid.position.y = -60;
+scene.add(grid);
+const N = 1500;
+const pos = new Float32Array(N * 3);
+for (let i = 0; i < N * 3; i++) pos[i] = (Math.random() - 0.5) * 800;
+const geo = new THREE.BufferGeometry();
+geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+const pts = new THREE.Points(geo, new THREE.PointsMaterial({
+  color: 0x00e5ff, size: 1.6, transparent: true, opacity: 0.8
+}));
+scene.add(pts);
+function resize() {
+  const w = innerWidth, h = innerHeight;
+  renderer.setSize(w, h, false);
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+}
+addEventListener('resize', resize);
+resize();
+let t = 0;
+function animate() {
+  t += 0.01;
+  grid.position.z = (t * 20) % 13.33;
+  pts.rotation.y += 0.0008;
+  camera.position.x = Math.sin(t * 0.3) * 20;
+  camera.lookAt(0, 0, 0);
+  renderer.render(scene, camera);
+  requestAnimationFrame(animate);
+}
+animate();
+function setSpeaking(on) {
+  document.getElementById('girl').classList.toggle('talking', on);
+}
+function showText(s) {
+  document.getElementById('text').textContent = s;
+}
+</script>
+</body>
+</html>
