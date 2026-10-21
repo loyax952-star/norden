@@ -1,9 +1,12 @@
-plugins {id 'com.android.application'
+plugins {
+    id 'com.android.application'
 }
 
-android {namespace 'com.norden.assistant'
+android {
+    namespace 'com.norden.assistant'
     compileSdk 34
-         defaultConfig {
+
+    defaultConfig {
         applicationId "com.norden.assistant"
         minSdk 24
         targetSdk 34
@@ -15,5 +18,4 @@ android {namespace 'com.norden.assistant'
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.core:core:1.13.1'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.8.22'
 }
