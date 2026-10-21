@@ -23,6 +23,4 @@ android {
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.core:core:1.13.1'
-} plugins {
-    id 'com.android.application' version '8.2.2' apply false
 }
