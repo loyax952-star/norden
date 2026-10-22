@@ -135,3 +135,4 @@ public class NordenService extends Service {
         @Override public void onPartialResults(Bundle partialResults) {}
         @Override public void onEvent(int eventType, Bundle params) {}
     };
+}
