@@ -6,6 +6,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    env:
+  ANDROID_SDK_HOME: /home/runner/work/norden/norden
+  
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
         with:
