@@ -1,23 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#140A14">
+package com.norden.assistant;
 
-    <ImageView
-        android:id="@+id/character"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitCenter"
-        android:src="@drawable/character" />
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import androidx.core.content.ContextCompat;
 
-    <Switch
-        android:id="@+id/powerSwitch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|end"
-        android:layout_margin="16dp"
-        android:text="Norden"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp" />
-</FrameLayout>
+public class BootReceiver extends BroadcastReceiver {
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())
+                && NordenService.isEnabled(context)) {
+            ContextCompat.startForegroundService(context, new Intent(context, NordenService.class));
+        }
+    }
+}
