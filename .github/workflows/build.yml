@@ -7,8 +7,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      ANDROID_SDK_HOME: /home/runner/work/norden/norden
     steps:
       - uses: actions/checkout@v4
 
@@ -21,10 +19,8 @@ jobs:
         with:
           gradle-version: 8.7
 
-      - name: Accept licenses
-        run: yes | sudo $ANDROID_SDK_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
-
-      - run: gradle assembleDebug --no-daemon
+      - name: Build debug APK
+        run: gradle assembleDebug --no-daemon
 
       - uses: actions/upload-artifact@v4
         with:
