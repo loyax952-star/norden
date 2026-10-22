@@ -5,7 +5,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env: 
+    env:
     ANDROID_SDK_HOME: /home/runner/work/norden/norden
   steps:
   -uses:actions/checkout@v4
